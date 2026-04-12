@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "question": "Select the technology that is used in the First generation of computer",
+    "options": ["transistor", "lsi", "vacuum tube", "vlsi"]
+  },
+  {
+    "id": 2,
+    "question": "Select the name of generation in which introduced Microprocessor",
+    "options": ["fourth generation", "second generation", "both (a) and (b)", "third generation"]
+  },
+  {
+    "id": 3,
+    "question": "A computer contains",
+    "options": ["a central processing unit", "a memory", "input and output unit", "all of the above"]
+  },
+  {
+    "id": 4,
+    "question": "Select the three decisions making actions performed by the ALU of a computer",
+    "options": ["less than", "greater than", "equal to", "all of the above"]
+  },
+  {
+    "id": 5,
+    "question": "The two kinds of main memory are",
+    "options": ["cds and dvds", "ram and rom", "primary and secondary", "direct and sequential"]
+  },
+  {
+    "id": 6,
+    "question": "RAM is also called as",
+    "options": ["virtual memory", "volatile memory", "non-volatile memory", "cache memory"]
+  },
+  {
+    "id": 7,
+    "question": "The main memory of computer is also called as",
+    "options": ["hard-disk", "primary storage", "secondary storage", "internal memory"]
+  },
+  {
+    "id": 8,
+    "question": "Which of the following is the second largest measurement of RAM",
+    "options": ["megabyte", "gigabyte", "byte", "terabyte"]
+  },
+  {
+    "id": 9,
+    "question": "Which of the following is fastest memory",
+    "options": ["virtual memory", "auxiliary memory", "cache memory", "secondary memory"]
+  },
+  {
+    "id": 10,
+    "question": "Which one is not a type of memory",
+    "options": ["rom", "ram", "joystick", "cache"]
+  },
+  {
+    "id": 11,
+    "question": "Fifth Generation of computer was based on which technology",
+    "options": ["artificial intelligence", "programming intelligence", "system knowledge", "vlsi"]
+  },
+  {
+    "id": 12,
+    "question": "Which of the following is an impact printer",
+    "options": ["laser", "inkjet", "dot matrix", "none of the above"]
+  },
+  {
+    "id": 13,
+    "question": "Which characteristics of computer distinguish it from electronic calculator",
+    "options": ["accuracy", "versatility", "storage", "automatic"]
+  },
+  {
+    "id": 14,
+    "question": "A light sensitive device that converts drawing, printed text or other images into digital form is known as",
+    "options": ["keyboard", "omr", "plotter", "scanner"]
+  },
+  {
+    "id": 15,
+    "question": "The main circuit board in a computer is called a",
+    "options": ["monitor", "cpu", "motherboard", "all of the above"]
+  },
+  {
+    "id": 16,
+    "question": "Which one of the following is not an input device",
+    "options": ["microphone", "mouse", "scanner", "none of the above"]
+  },
+  {
+    "id": 17,
+    "question": "Trackball is an example of",
+    "options": ["pointing device", "output device", "software device", "printing device"]
+  },
+  {
+    "id": 18,
+    "question": "What is malware",
+    "options": ["a hardware device", "a type of software designed to harm systems", "a programming language", "a network cable"]
+  },
+  {
+    "id": 19,
+    "question": "Ransomware primarily",
+    "options": ["deletes files permanently", "encrypts data and demands payment", "speeds up the system", "monitors user activity only"]
+  },
+  {
+    "id": 20,
+    "question": "Which of the following is an example of antivirus software",
+    "options": ["windows defender", "microsoft word", "google chrome", "vlc media player"]
+  },
+  {
+    "id": 21,
+    "question": "What is the main function of antivirus software",
+    "options": ["increase internet speed", "detect and remove malicious software", "create documents", "manage files"]
+  },
+  {
+    "id": 22,
+    "question": "Phishing attacks are used to",
+    "options": ["improve security", "steal sensitive information", "repair systems", "increase bandwidth"]
+  },
+  {
+    "id": 23,
+    "question": "A key characteristic of a virus is that it",
+    "options": ["spreads independently without a host file", "requires a host file or program to execute", "only targets network devices", "cannot replicate itself"]
+  },
+  {
+    "id": 24,
+    "question": "An operating system primarily acts as",
+    "options": ["a hardware controller only", "an intermediary between user applications and hardware", "a programming compiler", "a network device"]
+  },
+  {
+    "id": 25,
+    "question": "Which task is directly handled by an OS like Windows 11",
+    "options": ["compiling high-level code", "managing memory and process execution", "designing user interfaces only", "providing internet connectivity hardware"]
+  },
+  {
+    "id": 26,
+    "question": "The taskbar in a graphical user interface is mainly used for",
+    "options": ["storing system files", "providing quick access to active and pinned applications", "managing bios settings", "scanning for malware"]
+  },
+  {
+    "id": 27,
+    "question": "Desktop icons function as",
+    "options": ["representations of hardware interrupts", "shortcuts to files, folders, or programs", "system-level processes", "background services"]
+  },
+  {
+    "id": 28,
+    "question": "A graphical user interface (GUI) improves usability by",
+    "options": ["eliminating the need for hardware", "replacing memory management", "providing visual elements like windows, icons, and menus", "disabling command execution"]
+  },
+  {
+    "id": 29,
+    "question": "Which of the following best describes a device driver",
+    "options": ["a hardware component", "software that allows os to communicate with hardware", "a file compression tool", "a type of malware"]
+  },
+  {
+    "id": 30,
+    "question": "The file system in an OS is responsible for",
+    "options": ["managing cpu operations", "organizing and storing data on storage devices", "controlling network traffic", "executing applications"]
+  },
+  {
+    "id": 31,
+    "question": "The start menu is best described as",
+    "options": ["a hardware interface", "a centralized access point for applications and settings", "a file storage system", "a network configuration tool"]
+  },
+  {
+    "id": 32,
+    "question": "A firewall contributes to security by",
+    "options": ["storing passwords securely", "filtering network traffic based on rules", "scanning internal memory", "improving graphical output"]
+  },
+  {
+    "id": 33,
+    "question": "Which of the following groups consists of only output devices",
+    "options": ["scanner, monitor, printer", "mouse, monitor, printer", "keyboard, monitor, printer", "monitor, printer, plotter"]
+  },
+  {
+    "id": 34,
+    "question": "The full form of USB port is",
+    "options": ["united serial bus", "universal serial by-pass", "universal system bus", "universal serial bus"]
+  },
+  {
+    "id": 35,
+    "question": "A projector is a device that can take images generated by a computer and reproduce them on a large, flat surface",
+    "options": ["input", "output", "input and output", "monitor input"]
+  }
+]
