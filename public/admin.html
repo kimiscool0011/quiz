@@ -1,76 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<body>
+  <body>
+    <h2>Responses</h2>
 
-<h2>Admin Login</h2>
+    <div id="viewer"></div>
 
-<input type="password" id="pass">
-<button onclick="login()">Login</button>
+    <button onclick="prev()">⬅️</button>
+    <button onclick="next()">➡️</button>
 
-<div id="panel" style="display:none;">
-  <h3 id="count"></h3>
-  <div id="viewer"></div>
+    <script>
+      let responses = [];
+      let index = 0;
 
-  <button onclick="prev()">⬅️</button>
-  <button onclick="next()">➡️</button>
-</div>
+      async function load() {
+        const res = await fetch("/api/responses");
+        responses = await res.json();
 
-<script>
-let responses = [];
-let index = 0;
-let password = "";
+        show();
+      }
 
-async function login() {
-  password = document.getElementById('pass').value;
+      function show() {
+        if (responses.length === 0) {
+          document.getElementById("viewer").innerText = "No responses";
+          return;
+        }
 
-  const res = await fetch('/api/responses', {
-    headers: { 'x-admin-password': password }
-  });
+        let html = `<h3>${index + 1} / ${responses.length}</h3>`;
 
-  if (res.status !== 200) {
-    alert("Wrong password");
-    return;
-  }
+        const data = responses[index];
+        for (let k in data) {
+          html += `<p><b>${k}</b>: ${data[k]}</p>`;
+        }
 
-  responses = await res.json();
+        document.getElementById("viewer").innerHTML = html;
+      }
 
-  document.getElementById('panel').style.display = 'block';
-  show();
-}
+      function next() {
+        if (index < responses.length - 1) {
+          index++;
+          show();
+        }
+      }
 
-function show() {
-  if (responses.length === 0) {
-    document.getElementById('viewer').innerText = "No responses";
-    return;
-  }
+      function prev() {
+        if (index > 0) {
+          index--;
+          show();
+        }
+      }
 
-  document.getElementById('count').innerText =
-    `${index + 1} / ${responses.length}`;
-
-  const data = responses[index];
-
-  let html = "";
-  for (let k in data) {
-    html += `<p><b>${k}</b>: ${data[k]}</p>`;
-  }
-
-  document.getElementById('viewer').innerHTML = html;
-}
-
-function next() {
-  if (index < responses.length - 1) {
-    index++;
-    show();
-  }
-}
-
-function prev() {
-  if (index > 0) {
-    index--;
-    show();
-  }
-}
-</script>
-
-</body>
+      load();
+    </script>
+  </body>
 </html>
