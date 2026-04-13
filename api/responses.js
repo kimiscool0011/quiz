@@ -1,4 +1,4 @@
-import { Redis } from '@upstash/redis';
+import { Redis } from "@vercel/kv";
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
@@ -7,9 +7,9 @@ const redis = new Redis({
 
 export default async function handler(req, res) {
   try {
-    const data = await redis.lrange('responses', 0, -1);
+    const data = await redis.lrange("responses", 0, -1);
 
-    const parsed = data.map(item => {
+    const parsed = data.map((item) => {
       if (typeof item === "string") {
         try {
           return JSON.parse(item);
