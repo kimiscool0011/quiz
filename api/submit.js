@@ -1,18 +1,14 @@
-import { Redis } from "@vercel/kv";
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+import { Redis } from "@upstash/redis";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).end();
-  }
+  const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  });
 
   const data = req.body;
 
-  await redis.rpush("responses", JSON.stringify(data));
+  await redis.rpush("responses", JSON.stringify(data)); // ✅ FIXED
 
   res.json({ ok: true });
 }
