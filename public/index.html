@@ -1,54 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <body>
-    <h2>Quiz</h2>
-    <form id="quizForm"></form>
-    <button onclick="submitQuiz()">Submit</button>
+<body>
 
-    <script>
-      async function loadQuiz() {
-        const res = await fetch("questions.json");
-        const data = await res.json();
+<h2>Quiz</h2>
 
-        const form = document.getElementById("quizForm");
+<input type="text" id="name" placeholder="Enter your name"><br><br>
 
-        data.forEach((q) => {
-          const div = document.createElement("div");
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit</button>
 
-          div.innerHTML =
-            `<p>${q.question}</p>` +
-            q.options
-              .map(
-                (opt) =>
-                  `<label>
+<script>
+let questions = [];
+
+async function loadQuiz() {
+  const res = await fetch('questions.json');
+  questions = await res.json();
+
+  const form = document.getElementById('quizForm');
+
+  questions.forEach(q => {
+    const div = document.createElement('div');
+
+    div.innerHTML = `<p>${q.question}</p>` +
+      q.options.map(opt =>
+        `<label>
           <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
-        </label><br>`,
-              )
-              .join("");
+        </label><br>`
+      ).join('');
 
-          form.appendChild(div);
-        });
-      }
+    form.appendChild(div);
+  });
+}
 
-      async function submitQuiz() {
-        const form = document.getElementById("quizForm");
-        const data = new FormData(form);
+async function submitQuiz() {
+  const name = document.getElementById('name').value;
 
-        const answers = {};
-        for (let [k, v] of data.entries()) {
-          answers[k] = v;
-        }
+  const form = document.getElementById('quizForm');
+  const data = new FormData(form);
 
-        await fetch("/api/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(answers),
-        });
+  let answers = {};
+  let score = 0;
 
-        alert("Submitted!");
-      }
+  for (let [k, v] of data.entries()) {
+    answers[k] = v;
 
-      loadQuiz();
-    </script>
-  </body>
+    const qid = parseInt(k.replace('q',''));
+    const q = questions.find(x => x.id === qid);
+
+    if (q && q.correct === v) {
+      score++;
+    }
+  }
+
+  const payload = {
+    name,
+    answers,
+    score,
+    total: questions.length,
+    timestamp: new Date()
+  };
+
+  await fetch('/api/submit', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
+
+  alert(`Submitted! Score: ${score}/${questions.length}`);
+}
+
+loadQuiz();
+</script>
+
+</body>
 </html>

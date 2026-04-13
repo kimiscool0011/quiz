@@ -1,55 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <body>
-    <h2>Responses</h2>
+<body>
 
-    <div id="viewer"></div>
+<h2>Responses</h2>
 
-    <button onclick="prev()">⬅️</button>
-    <button onclick="next()">➡️</button>
+<div id="viewer"></div>
 
-    <script>
-      let responses = [];
-      let index = 0;
+<button onclick="prev()">⬅️</button>
+<button onclick="next()">➡️</button>
 
-      async function load() {
-        const res = await fetch("/api/responses");
-        responses = await res.json();
+<script>
+let responses = [];
+let index = 0;
 
-        show();
-      }
+async function load() {
+  const res = await fetch('/api/responses');
+  responses = await res.json();
+  show();
+}
 
-      function show() {
-        if (responses.length === 0) {
-          document.getElementById("viewer").innerText = "No responses";
-          return;
-        }
+function show() {
+  if (responses.length === 0) {
+    document.getElementById('viewer').innerText = "No responses";
+    return;
+  }
 
-        let html = `<h3>${index + 1} / ${responses.length}</h3>`;
+  const r = responses[index];
 
-        const data = responses[index];
-        for (let k in data) {
-          html += `<p><b>${k}</b>: ${data[k]}</p>`;
-        }
+  let html = `
+    <h3>${index + 1} / ${responses.length}</h3>
+    <p><b>Name:</b> ${r.name}</p>
+    <p><b>Score:</b> ${r.score} / ${r.total}</p>
+    <hr>
+  `;
 
-        document.getElementById("viewer").innerHTML = html;
-      }
+  for (let k in r.answers) {
+    html += `<p>${k}: ${r.answers[k]}</p>`;
+  }
 
-      function next() {
-        if (index < responses.length - 1) {
-          index++;
-          show();
-        }
-      }
+  document.getElementById('viewer').innerHTML = html;
+}
 
-      function prev() {
-        if (index > 0) {
-          index--;
-          show();
-        }
-      }
+function next() {
+  if (index < responses.length - 1) {
+    index++;
+    show();
+  }
+}
 
-      load();
-    </script>
-  </body>
+function prev() {
+  if (index > 0) {
+    index--;
+    show();
+  }
+}
+
+load();
+</script>
+
+</body>
 </html>
