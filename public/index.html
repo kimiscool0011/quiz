@@ -1,89 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <body>
-    <h2>Quiz</h2>
+<head>
+  <title>Quiz</title>
+</head>
+<body>
 
-    <input type="text" id="name" placeholder="Enter your name" /><br /><br />
+<h2>Quiz</h2>
 
-    <form id="quizForm"></form>
-    <button onclick="submitQuiz()">Submit</button>
+<input type="text" id="name" placeholder="Enter your name"><br><br>
 
-    if (localStorage.getItem("submitted")) { document.body.innerHTML = "
-    <h2>You have already submitted this quiz.</h2>
-    "; }
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit</button>
 
-    <script>
-      let questions = [];
+<script>
+let questions = [];
 
-      async function loadQuiz() {
-        const res = await fetch("questions.json");
-        questions = await res.json();
+// 🚫 Block if already submitted
+if (localStorage.getItem("submitted")) {
+  document.body.innerHTML = "<h2>You have already submitted this quiz.</h2>";
+}
 
-        const form = document.getElementById("quizForm");
+// Load questions
+async function loadQuiz() {
+  const res = await fetch('questions.json');
+  questions = await res.json();
 
-        questions.forEach((q) => {
-          const div = document.createElement("div");
+  const form = document.getElementById('quizForm');
 
-          div.innerHTML =
-            `<p>${q.question}</p>` +
-            q.options
-              .map(
-                (opt) =>
-                  `<label>
+  questions.forEach(q => {
+    const div = document.createElement('div');
+
+    div.innerHTML = `<p>${q.question}</p>` +
+      q.options.map(opt =>
+        `<label>
           <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
-        </label><br>`,
-              )
-              .join("");
+        </label><br>`
+      ).join('');
 
-          form.appendChild(div);
-        });
-      }
+    form.appendChild(div);
+  });
+}
 
-      async function submitQuiz() {
-        if (localStorage.getItem("submitted")) {
-          alert("Already submitted");
-          return;
-        }
+// Submit quiz
+async function submitQuiz() {
+  if (localStorage.getItem("submitted")) {
+    alert("You already submitted!");
+    return;
+  }
 
-        const name = document.getElementById("name").value;
+  if (questions.length === 0) {
+    alert("Questions not loaded");
+    return;
+  }
 
-        const form = document.getElementById("quizForm");
-        const data = new FormData(form);
+  const name = document.getElementById('name').value.trim();
 
-        let answers = {};
-        let score = 0;
+  if (!name) {
+    alert("Enter your name");
+    return;
+  }
 
-        for (let [k, v] of data.entries()) {
-          answers[k] = v;
+  const form = document.getElementById('quizForm');
+  const data = new FormData(form);
 
-          const qid = parseInt(k.replace("q", ""));
-          const q = questions.find((x) => x.id === qid);
+  let answers = {};
+  let score = 0;
 
-          if (q && q.correct.trim().toLowerCase() === v.trim().toLowerCase()) {
-            score++;
-          }
-        }
+  for (let [k, v] of data.entries()) {
+    answers[k] = v;
 
-        const payload = {
-          name,
-          answers,
-          score,
-          total: questions.length,
-          timestamp: new Date(),
-        };
+    const qid = parseInt(k.replace('q',''));
+    const q = questions.find(x => x.id === qid);
 
-        await fetch("/api/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+    if (
+      q &&
+      q.correct.trim().toLowerCase() === v.trim().toLowerCase()
+    ) {
+      score++;
+    }
+  }
 
-        localStorage.setItem("submitted", "true"); // ✅ block future attempts
+  const payload = {
+    name,
+    answers,
+    score,
+    total: questions.length,
+    timestamp: new Date()
+  };
 
-        alert(`Submitted! Score: ${score}/${questions.length}`);
-      }
+  await fetch('/api/submit', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
 
-      loadQuiz();
-    </script>
-  </body>
+  // ✅ Prevent future submissions
+  localStorage.setItem("submitted", "true");
+
+  alert(`Submitted! Score: ${score}/${questions.length}`);
+
+  // Optional: replace page after submission
+  document.body.innerHTML = `<h2>Thank you, ${name}!</h2>
+  <p>Your score: ${score}/${questions.length}</p>`;
+}
+
+loadQuiz();
+</script>
+
+</body>
 </html>
